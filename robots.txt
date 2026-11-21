@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lambent-crepe-a21250.netlify.app/sitemap.xml
