@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Urdu Word Counter - ToolNova</title>
+<meta name="description" content="Free Urdu word counter. Count Urdu words, characters, sentences and lines.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header><div class="wrap nav">
+ <a href="../index.html" class="logo">TOOL<span>NOVA</span><small>Free Online Tools for Everyone</small></a>
+ <nav><a href="../index.html">Home</a><a href="../index.html#popular">All Tools</a><a href="../contact.html">Contact</a></nav>
+</div></header>
+<main class="wrap page">
+ <h1>Urdu Word Counter</h1><p class="lead">Type or paste Urdu text.</p>
+ <div class="box">
+  <textarea id="t" dir="rtl" placeholder="یہاں اردو متن لکھیں..." style="font-size:20px"></textarea>
+  <div class="stats"><div class="stat"><b id="w">0</b>Words</div><div class="stat"><b id="c">0</b>Characters</div><div class="stat"><b id="s">0</b>Sentences</div><div class="stat"><b id="l">0</b>Lines</div></div>
+ </div>
+ <div class="box faq">
+  <h2>Frequently asked questions</h2>
+  <h3>Does it work for English too?</h3><p>Yes, it counts any language separated by spaces.</p>
+ </div>
+</main>
+<footer><a href="../about.html">About</a> &nbsp;|&nbsp; <a href="../contact.html">Contact</a> &nbsp;|&nbsp; <a href="../privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="../terms.html">Terms</a><br>© 2026 ToolNova. All rights reserved.</footer>
+<script>
+const $=id=>document.getElementById(id);
+$("t").oninput=()=>{const v=$("t").value;
+ $("w").textContent=v.trim()?v.trim().split(/\s+/).length:0;$("c").textContent=v.length;
+ $("s").textContent=(v.match(/[^۔.!?؟]+[۔.!?؟]+/g)||[]).length;$("l").textContent=v.split("\n").filter(x=>x.trim()).length};
+</script>
+</body>
+</html>

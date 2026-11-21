@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compound Interest Calculator - ToolNova</title>
+<meta name="description" content="Free compound interest calculator. See how your savings or investment grows.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header><div class="wrap nav">
+ <a href="../index.html" class="logo">TOOL<span>NOVA</span><small>Free Online Tools for Everyone</small></a>
+ <nav><a href="../index.html">Home</a><a href="../index.html#popular">All Tools</a><a href="../contact.html">Contact</a></nav>
+</div></header>
+<main class="wrap page">
+ <h1>Compound Interest Calculator</h1><p class="lead">Enter amount, rate and time.</p>
+ <div class="box">
+  <div class="row"><input type="number" id="p" placeholder="Starting amount"><input type="number" id="r" placeholder="Yearly interest rate (%)"><input type="number" id="y" placeholder="Years"></div>
+  <select id="n"><option value="1">Compounded yearly</option><option value="4">Quarterly</option><option value="12" selected>Monthly</option><option value="365">Daily</option></select>
+  <button class="btn" id="go">Calculate</button>
+  <div class="stats" style="margin-top:16px"><div class="stat"><b id="a">-</b>Final amount</div><div class="stat"><b id="i">-</b>Interest earned</div></div>
+ </div>
+ <div class="box faq">
+  <h2>Frequently asked questions</h2>
+  <h3>What is compound interest?</h3><p>Interest earned on both your starting amount and on the interest already added.</p>
+  <h3>Formula used?</h3><p>A = P × (1 + r/n)^(n×t).</p>
+ </div>
+</main>
+<footer><a href="../about.html">About</a> &nbsp;|&nbsp; <a href="../contact.html">Contact</a> &nbsp;|&nbsp; <a href="../privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="../terms.html">Terms</a><br>© 2026 ToolNova. All rights reserved.</footer>
+<script>
+const $=id=>document.getElementById(id);
+$("go").onclick=()=>{
+ const P=+$("p").value,r=+$("r").value/100,y=+$("y").value,n=+$("n").value;
+ if(!(P>0&&y>0&&r>=0))return;
+ const A=P*Math.pow(1+r/n,n*y),f=x=>Math.round(x).toLocaleString();
+ $("a").textContent=f(A);$("i").textContent=f(A-P);
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Remove Duplicate Lines - ToolNova</title>
+<meta name="description" content="Free tool to remove duplicate lines from a list.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header><div class="wrap nav">
+ <a href="../index.html" class="logo">TOOL<span>NOVA</span><small>Free Online Tools for Everyone</small></a>
+ <nav><a href="../index.html">Home</a><a href="../index.html#popular">All Tools</a><a href="../contact.html">Contact</a></nav>
+</div></header>
+<main class="wrap page">
+ <h1>Remove Duplicate Lines</h1><p class="lead">Paste a list and get only unique lines.</p>
+ <div class="box">
+  <textarea id="t" placeholder="One item per line..."></textarea>
+  <label><input type="checkbox" id="ci"> Ignore upper/lower case</label> &nbsp;
+  <label><input type="checkbox" id="so"> Sort A-Z</label><br><br>
+  <button class="btn" id="go">Remove duplicates</button>
+  <div class="result" id="res"></div>
+ </div>
+ <div class="box faq">
+  <h2>Frequently asked questions</h2>
+  <h3>Are empty lines removed?</h3><p>Yes, empty lines are dropped along with duplicates.</p>
+ </div>
+</main>
+<footer><a href="../about.html">About</a> &nbsp;|&nbsp; <a href="../contact.html">Contact</a> &nbsp;|&nbsp; <a href="../privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="../terms.html">Terms</a><br>© 2026 ToolNova. All rights reserved.</footer>
+<script>
+const $=id=>document.getElementById(id);
+$("go").onclick=()=>{
+ const l=$("t").value.split("\n"),seen=new Set(),o=[];
+ l.forEach(x=>{const k=$("ci").checked?x.trim().toLowerCase():x.trim();if(k&&!seen.has(k)){seen.add(k);o.push(x.trim())}});
+ if($("so").checked)o.sort((a,b)=>a.localeCompare(b));
+ $("t").value=o.join("\n");$("res").textContent=(l.filter(x=>x.trim()).length-o.length)+" duplicate(s) removed";
+};
+</script>
+</body>
+</html>

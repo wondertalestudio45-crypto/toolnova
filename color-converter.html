@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Color Converter - ToolNova</title>
+<meta name="description" content="Free color converter. Convert HEX to RGB and HSL and pick colors.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header><div class="wrap nav">
+ <a href="../index.html" class="logo">TOOL<span>NOVA</span><small>Free Online Tools for Everyone</small></a>
+ <nav><a href="../index.html">Home</a><a href="../index.html#popular">All Tools</a><a href="../contact.html">Contact</a></nav>
+</div></header>
+<main class="wrap page">
+ <h1>Color Converter</h1><p class="lead">Pick a color or type a HEX code.</p>
+ <div class="box">
+  <input type="color" id="p" value="#2d7bff" style="width:100%;height:70px;border:0;margin-bottom:12px">
+  <input type="text" id="h" value="#2d7bff" style="width:100%;padding:12px;border:1px solid #cdd7ee;border-radius:10px;margin-bottom:12px">
+  <div class="stats"><div class="stat"><b id="rgb" style="font-size:18px">-</b>RGB</div><div class="stat"><b id="hsl" style="font-size:18px">-</b>HSL</div></div>
+ </div>
+ <div class="box faq">
+  <h2>Frequently asked questions</h2>
+  <h3>What is a HEX color?</h3><p>A 6-character code, like #2d7bff, for the amount of red, green and blue.</p>
+ </div>
+</main>
+<footer><a href="../about.html">About</a> &nbsp;|&nbsp; <a href="../contact.html">Contact</a> &nbsp;|&nbsp; <a href="../privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="../terms.html">Terms</a><br>© 2026 ToolNova. All rights reserved.</footer>
+<script>
+const $=id=>document.getElementById(id);
+function show(hex){
+ const m=/^#?([0-9a-f]{6})$/i.exec(hex.trim());if(!m)return;
+ const n=parseInt(m[1],16),r=n>>16,g=(n>>8)&255,b=n&255;
+ $("rgb").textContent="rgb("+r+", "+g+", "+b+")";
+ const R=r/255,G=g/255,B=b/255,mx=Math.max(R,G,B),mn=Math.min(R,G,B),d=mx-mn;let h=0,s=0,l=(mx+mn)/2;
+ if(d){s=d/(1-Math.abs(2*l-1));h=mx===R?((G-B)/d)%6:mx===G?(B-R)/d+2:(R-G)/d+4;h*=60;if(h<0)h+=360}
+ $("hsl").textContent="hsl("+Math.round(h)+", "+Math.round(s*100)+"%, "+Math.round(l*100)+"%)";
+}
+$("p").oninput=()=>{$("h").value=$("p").value;show($("p").value)};
+$("h").oninput=()=>{show($("h").value);if(/^#[0-9a-f]{6}$/i.test($("h").value))$("p").value=$("h").value};
+show("#2d7bff");
+</script>
+</body>
+</html>

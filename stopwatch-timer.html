@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stopwatch and Timer - ToolNova</title>
+<meta name="description" content="Free online stopwatch and countdown timer.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header><div class="wrap nav">
+ <a href="../index.html" class="logo">TOOL<span>NOVA</span><small>Free Online Tools for Everyone</small></a>
+ <nav><a href="../index.html">Home</a><a href="../index.html#popular">All Tools</a><a href="../contact.html">Contact</a></nav>
+</div></header>
+<main class="wrap page">
+ <h1>Stopwatch and Timer</h1><p class="lead">A stopwatch and a countdown in one page.</p>
+ <div class="box">
+  <h3>Stopwatch</h3>
+  <div class="result" id="sw" style="font-size:40px">00:00:00.0</div>
+  <button class="btn" id="s1">Start</button> <button class="btn" id="s2">Reset</button>
+  <hr style="margin:24px 0;border:0;border-top:1px solid #e3e9f7">
+  <h3>Countdown timer</h3>
+  <div class="row"><input type="number" id="mn" value="5" min="0"><input type="number" id="sc" value="0" min="0" max="59"></div>
+  <div class="result" id="cd" style="font-size:40px">05:00</div>
+  <button class="btn" id="c1">Start</button> <button class="btn" id="c2">Reset</button>
+ </div>
+ <div class="box faq">
+  <h2>Frequently asked questions</h2>
+  <h3>Does the timer keep running in another tab?</h3><p>Browsers may slow timers in background tabs, so keep this tab open for exact timing.</p>
+ </div>
+</main>
+<footer><a href="../about.html">About</a> &nbsp;|&nbsp; <a href="../contact.html">Contact</a> &nbsp;|&nbsp; <a href="../privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="../terms.html">Terms</a><br>© 2026 ToolNova. All rights reserved.</footer>
+<script>
+const $=id=>document.getElementById(id);
+const p=n=>String(n).padStart(2,"0");
+let t0=0,acc=0,tm=null;
+function draw(){const ms=acc+(tm?Date.now()-t0:0),s=Math.floor(ms/1000);$("sw").textContent=p(Math.floor(s/3600))+":"+p(Math.floor(s/60)%60)+":"+p(s%60)+"."+Math.floor(ms%1000/100)}
+$("s1").onclick=()=>{if(tm){acc+=Date.now()-t0;clearInterval(tm);tm=null;$("s1").textContent="Start"}else{t0=Date.now();tm=setInterval(draw,100);$("s1").textContent="Stop"}draw()};
+$("s2").onclick=()=>{clearInterval(tm);tm=null;acc=0;$("s1").textContent="Start";draw()};
+let left=0,cm=null;
+function cdraw(){$("cd").textContent=p(Math.floor(left/60))+":"+p(left%60)}
+function setc(){left=(+$("mn").value||0)*60+(+$("sc").value||0);cdraw()}
+$("mn").oninput=$("sc").oninput=()=>{if(!cm)setc()};
+$("c1").onclick=()=>{
+ if(cm){clearInterval(cm);cm=null;$("c1").textContent="Start";return}
+ if(left<=0)setc();if(left<=0)return;
+ $("c1").textContent="Pause";
+ cm=setInterval(()=>{left--;cdraw();if(left<=0){clearInterval(cm);cm=null;$("c1").textContent="Start";$("cd").textContent="Time is up!"}},1000)};
+$("c2").onclick=()=>{clearInterval(cm);cm=null;$("c1").textContent="Start";setc()};
+draw();setc();
+</script>
+</body>
+</html>

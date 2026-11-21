@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hijri Date Converter - ToolNova</title>
+<meta name="description" content="Free Hijri to Gregorian date converter and Gregorian to Hijri.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header><div class="wrap nav">
+ <a href="../index.html" class="logo">TOOL<span>NOVA</span><small>Free Online Tools for Everyone</small></a>
+ <nav><a href="../index.html">Home</a><a href="../index.html#popular">All Tools</a><a href="../contact.html">Contact</a></nav>
+</div></header>
+<main class="wrap page">
+ <h1>Hijri Date Converter</h1><p class="lead">Convert between Islamic and English dates.</p>
+ <div class="box">
+  <h3>Gregorian to Hijri</h3>
+  <input type="date" id="g" style="width:100%;padding:12px;border:1px solid #cdd7ee;border-radius:10px;margin-bottom:12px">
+  <div class="result" id="r1"></div>
+  <hr style="margin:22px 0;border:0;border-top:1px solid #e3e9f7">
+  <h3>Hijri to Gregorian</h3>
+  <div class="row"><input type="number" id="hy" placeholder="Year (e.g. 1448)"><input type="number" id="hm" placeholder="Month (1-12)"><input type="number" id="hd" placeholder="Day"></div>
+  <button class="btn" id="go">Convert</button>
+  <div class="result" id="r2"></div>
+ </div>
+ <div class="box faq">
+  <h2>Frequently asked questions</h2>
+  <h3>Why can the date differ by one day?</h3><p>This tool uses the Umm al-Qura calendar. Pakistan follows local moon sighting, so dates can differ by a day.</p>
+ </div>
+</main>
+<footer><a href="../about.html">About</a> &nbsp;|&nbsp; <a href="../contact.html">Contact</a> &nbsp;|&nbsp; <a href="../privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="../terms.html">Terms</a><br>© 2026 ToolNova. All rights reserved.</footer>
+<script>
+const $=id=>document.getElementById(id);
+const F=new Intl.DateTimeFormat("en-u-ca-islamic-umalqura-nu-latn",{year:"numeric",month:"numeric",day:"numeric",timeZone:"UTC"});
+const N=["Muharram","Safar","Rabi al-Awwal","Rabi al-Thani","Jumada al-Awwal","Jumada al-Thani","Rajab","Shaban","Ramadan","Shawwal","Dhul Qadah","Dhul Hijjah"];
+function hij(d){const p=F.formatToParts(d).reduce((a,x)=>(a[x.type]=+x.value,a),{});return p}
+$("g").oninput=()=>{if(!$("g").value)return;const p=hij(new Date($("g").value+"T00:00:00Z"));$("r1").textContent=p.day+" "+N[p.month-1]+" "+p.year+" AH"};
+$("go").onclick=()=>{
+ const y=+$("hy").value,m=+$("hm").value,d=+$("hd").value;
+ if(!(y>1&&m>=1&&m<=12&&d>=1&&d<=30)){$("r2").textContent="Enter a valid Hijri year, month (1-12) and day.";return}
+ let t=Date.UTC(Math.round(y*0.97022+621.57),0,1)-400*864e5;
+ for(let i=0;i<900;i++,t+=864e5){const p=hij(new Date(t));if(p.year===y&&p.month===m&&p.day===d){$("r2").textContent=new Date(t).toLocaleDateString("en-GB",{dateStyle:"full",timeZone:"UTC"});return}}
+ $("r2").textContent="Date not found. Please check the day.";
+};
+</script>
+</body>
+</html>

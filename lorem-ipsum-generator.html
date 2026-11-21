@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lorem Ipsum Generator - ToolNova</title>
+<meta name="description" content="Free Lorem Ipsum generator for placeholder text.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header><div class="wrap nav">
+ <a href="../index.html" class="logo">TOOL<span>NOVA</span><small>Free Online Tools for Everyone</small></a>
+ <nav><a href="../index.html">Home</a><a href="../index.html#popular">All Tools</a></nav>
+</div></header>
+<main class="wrap page">
+ <h1>Lorem Ipsum Generator</h1><p class="lead">Create placeholder text for your designs.</p>
+ <div class="box">
+  <input type="number" id="n" value="3" min="1" max="20">
+  <button class="btn" id="go">Generate paragraphs</button>
+  <textarea id="out" style="margin-top:12px"></textarea>
+ </div>
+ <div class="box faq">
+  <h2>Frequently asked questions</h2>
+  <h3>What is Lorem Ipsum?</h3><p>Dummy text used by designers to fill a layout before the real content is ready.</p>
+ </div>
+</main>
+<footer><a href="../about.html">About</a> &nbsp;|&nbsp; <a href="../contact.html">Contact</a> &nbsp;|&nbsp; <a href="../privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="../terms.html">Terms</a><br>© 2026 ToolNova. All rights reserved.</footer>
+<script>
+const W="lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo consequat".split(" ");
+const pick=()=>W[Math.floor(Math.random()*W.length)];
+function sentence(){const l=8+Math.floor(Math.random()*8);let s=Array.from({length:l},pick).join(" ");return s[0].toUpperCase()+s.slice(1)+"."}
+function para(){return Array.from({length:4+Math.floor(Math.random()*3)},sentence).join(" ")}
+document.getElementById("go").onclick=()=>{
+ const n=Math.min(20,Math.max(1,+document.getElementById("n").value||1));
+ document.getElementById("out").value=Array.from({length:n},para).join("\n\n");
+};
+</script>
+</body>
+</html>

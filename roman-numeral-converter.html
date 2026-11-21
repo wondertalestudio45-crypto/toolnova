@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roman Numeral Converter - ToolNova</title>
+<meta name="description" content="Free Roman numeral converter. Convert numbers to Roman numerals and back.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header><div class="wrap nav">
+ <a href="../index.html" class="logo">TOOL<span>NOVA</span><small>Free Online Tools for Everyone</small></a>
+ <nav><a href="../index.html">Home</a><a href="../index.html#popular">All Tools</a><a href="../contact.html">Contact</a></nav>
+</div></header>
+<main class="wrap page">
+ <h1>Roman Numeral Converter</h1><p class="lead">Type a number (1-3999) or a Roman numeral.</p>
+ <div class="box">
+  <input type="text" id="x" placeholder="e.g. 2026 or MMXXVI" style="width:100%;padding:12px;border:1px solid #cdd7ee;border-radius:10px;margin-bottom:12px">
+  <div class="result" id="res"></div>
+ </div>
+ <div class="box faq">
+  <h2>Frequently asked questions</h2>
+  <h3>What is the largest number?</h3><p>Standard Roman numerals go up to 3999 (MMMCMXCIX).</p>
+ </div>
+</main>
+<footer><a href="../about.html">About</a> &nbsp;|&nbsp; <a href="../contact.html">Contact</a> &nbsp;|&nbsp; <a href="../privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="../terms.html">Terms</a><br>© 2026 ToolNova. All rights reserved.</footer>
+<script>
+const $=id=>document.getElementById(id);
+const M=[[1000,"M"],[900,"CM"],[500,"D"],[400,"CD"],[100,"C"],[90,"XC"],[50,"L"],[40,"XL"],[10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]];
+function toR(n){let s="";M.forEach(([v,r])=>{while(n>=v){s+=r;n-=v}});return s}
+function fromR(s){let n=0,i=0;M.forEach(([v,r])=>{while(s.startsWith(r,i)){n+=v;i+=r.length}});return i===s.length?n:NaN}
+$("x").oninput=()=>{
+ const v=$("x").value.trim().toUpperCase();if(!v){$("res").textContent="";return}
+ if(/^\d+$/.test(v)){const n=+v;$("res").textContent=n>=1&&n<=3999?toR(n):"Enter a number from 1 to 3999."}
+ else{const n=fromR(v);$("res").textContent=n>0&&toR(n)===v?String(n):"Not a valid Roman numeral."}
+};
+</script>
+</body>
+</html>

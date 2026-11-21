@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text Compare - ToolNova</title>
+<meta name="description" content="Free text compare tool. Find differences between two texts line by line.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header><div class="wrap nav">
+ <a href="../index.html" class="logo">TOOL<span>NOVA</span><small>Free Online Tools for Everyone</small></a>
+ <nav><a href="../index.html">Home</a><a href="../index.html#popular">All Tools</a><a href="../contact.html">Contact</a></nav>
+</div></header>
+<main class="wrap page">
+ <h1>Text Compare</h1><p class="lead">Paste two texts to see which lines differ.</p>
+ <div class="box">
+  <div class="row"><textarea id="a" placeholder="Original text"></textarea><textarea id="b" placeholder="Changed text"></textarea></div>
+  <button class="btn" id="go">Compare</button>
+  <div id="out" style="margin-top:16px;font-family:monospace"></div>
+ </div>
+ <div class="box faq">
+  <h2>Frequently asked questions</h2>
+  <h3>How does it compare?</h3><p>Line by line. Red lines are from the original and green lines are from the changed text.</p>
+ </div>
+</main>
+<footer><a href="../about.html">About</a> &nbsp;|&nbsp; <a href="../contact.html">Contact</a> &nbsp;|&nbsp; <a href="../privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="../terms.html">Terms</a><br>© 2026 ToolNova. All rights reserved.</footer>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+$("go").onclick=()=>{
+ const a=$("a").value.split("\n"),b=$("b").value.split("\n"),n=Math.max(a.length,b.length);
+ let h="",d=0;
+ for(let i=0;i<n;i++){
+  if(a[i]===b[i])h+=`<div>${esc(a[i]||"")}</div>`;
+  else{d++;if(a[i]!==undefined)h+=`<div style="background:#ffe3e3">- ${esc(a[i])}</div>`;if(b[i]!==undefined)h+=`<div style="background:#ddf7e3">+ ${esc(b[i])}</div>`}
+ }
+ $("out").innerHTML=(d?d+" line(s) differ.":"The texts are identical.")+h;
+};
+</script>
+</body>
+</html>

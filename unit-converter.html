@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit Converter - ToolNova</title>
+<meta name="description" content="Free unit converter for length, weight, temperature and more.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header><div class="wrap nav">
+ <a href="../index.html" class="logo">TOOL<span>NOVA</span><small>Free Online Tools for Everyone</small></a>
+ <nav><a href="../index.html">Home</a><a href="../index.html#popular">All Tools</a></nav>
+</div></header>
+<main class="wrap page">
+ <h1>Unit Converter</h1><p class="lead">Pick a type, enter a value and see the result instantly.</p>
+ <div class="box">
+  <select id="type"></select>
+  <div class="row"><input type="number" id="val" value="1"><select id="from"></select><select id="to"></select></div>
+  <div class="result" id="res"></div>
+ </div>
+ <div class="box faq">
+  <h2>Frequently asked questions</h2>
+  <h3>Which units are supported?</h3><p>Length, weight, volume and temperature. More units can be added in the script.</p>
+ </div>
+</main>
+<footer><a href="../about.html">About</a> &nbsp;|&nbsp; <a href="../contact.html">Contact</a> &nbsp;|&nbsp; <a href="../privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="../terms.html">Terms</a><br>© 2026 ToolNova. All rights reserved.</footer>
+<script>
+const U={
+ Length:{m:1,km:1000,cm:0.01,mm:0.001,mile:1609.344,yard:0.9144,foot:0.3048,inch:0.0254},
+ Weight:{kg:1,g:0.001,mg:1e-6,lb:0.45359237,oz:0.028349523},
+ Volume:{l:1,ml:0.001,gallon:3.785411784,cup:0.2365882365},
+ Temperature:{celsius:1,fahrenheit:1,kelvin:1}
+};
+const $=id=>document.getElementById(id);
+Object.keys(U).forEach(k=>$("type").add(new Option(k,k)));
+function fill(){const u=Object.keys(U[$("type").value]);$("from").innerHTML=$("to").innerHTML="";u.forEach(x=>{$("from").add(new Option(x,x));$("to").add(new Option(x,x))});$("to").selectedIndex=1;calc()}
+function calc(){
+ const v=parseFloat($("val").value),t=$("type").value,f=$("from").value,o=$("to").value;
+ if(isNaN(v)){$("res").textContent="";return}
+ let r;
+ if(t==="Temperature"){
+  let c=f==="celsius"?v:f==="fahrenheit"?(v-32)*5/9:v-273.15;
+  r=o==="celsius"?c:o==="fahrenheit"?c*9/5+32:c+273.15;
+ } else r=v*U[t][f]/U[t][o];
+ $("res").textContent=v+" "+f+" = "+Math.round(r*1e6)/1e6+" "+o;
+}
+$("type").onchange=fill;["val","from","to"].forEach(i=>$(i).oninput=calc);fill();
+</script>
+</body>
+</html>
